@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Findes UPV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  /* Concepto: tablero de andén. La semana arranca el martes para que el finde (vie→lun) quede en un solo bloque de 4 columnas; el rango elegido se lee como un billete perforado. Tokens con nombre: --tinta, --papel, --anden, --senal, --aviso, --via-libre */
+  --papel:#eceff3;
+  --superficie:#ffffff;
+  --superficie-2:#f5f7f9;
+  --tinta:#111a2c;
+  --tinta-2:#4a5466;
+  --tinta-3:#768096;
+  --linea:#d2d8e1;
+  --anden:#111a2c;
+  --sobre-anden:#eef2f7;
+  --sobre-anden-2:#a9b4c6;
+  --senal:#c22f1b;
+  --senal-bg:#fbe6e1;
+  --aviso:#9a6200;
+  --aviso-bg:#fbefd6;
+  --via-libre:#1f7346;
+  --via-libre-bg:#dff1e6;
+  --finde-bg:#f1f4f9;
+  --festivo-raya:#e9dfc6;
+  --festivo-tx:#7a5a12;
+  --actos-bg:#ebe6f8;
+  --finales-bg:#e1edf3;
+  --rango:#111a2c;
+  --sobre-rango:#ffffff;
+  --rango-bg:#dfe6f2;
+  --foco:#1d5ee0;
+  --m-ssr:#0d7482;
+  --m-aiv:#b02d68;
+  --m-avd:#6447c0;
+  --m-iei:#c0510a;
+  --m-tia:#1f5fc4;
+  --m-d3d:#5f7310;
+  --radio:5px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:#0b1019;
+    --superficie:#141b28;
+    --superficie-2:#19212f;
+    --tinta:#e7ebf2;
+    --tinta-2:#a6b0c1;
+    --tinta-3:#7d889b;
+    --linea:#2a3446;
+    --anden:#05080e;
+    --sobre-anden:#e7ebf2;
+    --sobre-anden-2:#8f9bb0;
+    --senal:#ff6b56;
+    --senal-bg:#3b1610;
+    --aviso:#f0b545;
+    --aviso-bg:#33250a;
+    --via-libre:#5fd395;
+    --via-libre-bg:#10301e;
+    --finde-bg:#172031;
+    --festivo-raya:#3a3322;
+    --festivo-tx:#e2c27a;
+    --actos-bg:#221d38;
+    --finales-bg:#132739;
+    --rango:#dce5f6;
+    --sobre-rango:#0b1019;
+    --rango-bg:#203152;
+    --foco:#82abff;
+    --m-ssr:#4cc8d6;
+    --m-aiv:#f27fb2;
+    --m-avd:#ab96ff;
+    --m-iei:#ff9b55;
+    --m-tia:#7eabff;
+    --m-d3d:#bcd04f;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#0b1019;
+  --superficie:#141b28;
+  --superficie-2:#19212f;
+  --tinta:#e7ebf2;
+  --tinta-2:#a6b0c1;
+  --tinta-3:#7d889b;
+  --linea:#2a3446;
+  --anden:#05080e;
+  --sobre-anden:#e7ebf2;
+  --sobre-anden-2:#8f9bb0;
+  --senal:#ff6b56;
+  --senal-bg:#3b1610;
+  --aviso:#f0b545;
+  --aviso-bg:#33250a;
+  --via-libre:#5fd395;
+  --via-libre-bg:#10301e;
+  --finde-bg:#172031;
+  --festivo-raya:#3a3322;
+  --festivo-tx:#e2c27a;
+  --actos-bg:#221d38;
+  --finales-bg:#132739;
+  --rango:#dce5f6;
+  --sobre-rango:#0b1019;
+  --rango-bg:#203152;
+  --foco:#82abff;
+  --m-ssr:#4cc8d6;
+  --m-aiv:#f27fb2;
+  --m-avd:#ab96ff;
+  --m-iei:#ff9b55;
+  --m-tia:#7eabff;
+  --m-d3d:#bcd04f;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.45}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--foco);outline-offset:2px}
+.num-t,.f-fechas,.cuando,.mes-titulo,.dia .n,.billete-fechas{font-variant-numeric:tabular-nums}
+.cond{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif}
+
+.app{max-width:1220px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left));padding-block:16px 48px}
+
+/* ---- tablero ---- */
+.tablero{background:var(--anden);color:var(--sobre-anden);border-radius:var(--radio);padding:14px 18px 12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:end}
+.tablero h1{margin:0;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-weight:700;font-size:clamp(28px,6vw,40px);letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.tablero .sub{margin:4px 0 0;color:var(--sobre-anden-2);font-size:14px}
+.tablero .hoy{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:18px;font-weight:600;text-align:right;white-space:nowrap}
+.tablero .hoy small{display:block;font-size:12px;font-weight:500;color:var(--sobre-anden-2);letter-spacing:.08em;text-transform:uppercase}
+.faltas{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 16px;border-top:1px dashed var(--sobre-anden-2);padding-top:8px;margin-top:4px;font-size:13px;color:var(--sobre-anden-2)}
+.faltas b{color:var(--sobre-anden);font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:17px;font-weight:600;margin-left:4px}
+.faltas .rot{text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;align-self:center}
+
+/* ---- layout ---- */
+.cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin-top:16px}
+.cuerpo>*{min-width:0}
+@media (min-width:920px){
+  .cuerpo{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start}
+  .col-lista{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+}
+.panel{background:var(--superficie);border:1px solid var(--linea);border-radius:var(--radio);padding:14px}
+.rot-sec{margin:0 0 8px;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-2)}
+
+/* ---- findes ---- */
+.findes{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px}
+.finde{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0;padding:7px 9px 7px 12px;border:1px solid var(--linea);border-radius:var(--radio);background:var(--superficie-2);position:relative;transition:border-color .15s,background .15s}
+.finde::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:4px;border-radius:0 3px 3px 0;background:var(--via-libre)}
+.finde.est-bloquea::before{background:var(--senal)}
+.finde.est-faltas::before{background:var(--aviso)}
+.finde:hover{border-color:var(--tinta-3)}
+.finde:focus-visible{outline:2.5px solid var(--foco);outline-offset:2px}
+.finde[aria-pressed="true"]{border-color:var(--rango);background:var(--rango-bg)}
+.f-fechas{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.f-est{font-size:12.5px;color:var(--tinta-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.est-bloquea .f-est{color:var(--senal)}
+.est-faltas .f-est{color:var(--aviso)}
+.est-libre .f-est{color:var(--via-libre)}
+.mas{margin-top:8px;background:none;border:0;padding:4px 0;color:var(--tinta-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:13.5px}
+
+/* ---- calendario ---- */
+.mesbar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.mes-titulo{margin:0;flex:1;min-width:0;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:26px;font-weight:600;text-transform:capitalize;letter-spacing:.02em}
+.btn{border:1px solid var(--linea);background:var(--superficie-2);border-radius:var(--radio);min-height:36px;min-width:36px;padding:0 10px;cursor:pointer;font-size:14px}
+.btn:hover:not(:disabled){border-color:var(--tinta-3)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn-flecha{font-size:20px;line-height:1;padding:0}
+.cab{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;margin-bottom:3px}
+.cab span{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta-2);text-align:center;padding:2px 0}
+.cab .brk{grid-column:4/8;border-bottom:2px solid var(--tinta);color:var(--tinta);padding:0 0 2px}
+.cab .vac{grid-column:1/4}
+.cab .fd{color:var(--tinta)}
+.grilla{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.vacio{min-height:64px}
+.dia{all:unset;box-sizing:border-box;cursor:pointer;min-width:0;min-height:66px;padding:5px 5px 6px;border-radius:var(--radio);background:var(--superficie);border:1px solid var(--linea);display:flex;flex-direction:column;align-items:flex-start;gap:4px;position:relative;transition:background .12s,border-color .12s}
+.dia.finde-col{background:var(--finde-bg)}
+.dia.p-actos{background:var(--actos-bg)}
+.dia.p-finales{background:var(--finales-bg)}
+.dia.festivo{background:repeating-linear-gradient(135deg,var(--festivo-raya) 0 4px,transparent 4px 9px),var(--superficie)}
+.dia:hover{border-color:var(--tinta-3)}
+.dia:focus-visible{outline:2.5px solid var(--foco);outline-offset:1px;z-index:2}
+.dia.fuera{opacity:.5}
+.dia.bloquea{box-shadow:inset 0 3px 0 var(--senal)}
+.dia .n{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:18px;font-weight:600;line-height:1;display:flex;align-items:center;gap:3px;max-width:100%}
+.dia.hoy .n{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.dia.hoy::after{content:"hoy";position:absolute;right:4px;top:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta-2)}
+.dia .tg{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--festivo-tx);line-height:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dia .tg.fin{color:var(--senal)}
+.dia.en-rango{background:var(--rango-bg);border-color:var(--rango-bg)}
+.dia.ext{border:2px solid var(--rango);background:var(--rango-bg)}
+.dia.ext .n{background:var(--rango);color:var(--sobre-rango);padding:2px 4px;border-radius:3px;margin:-2px 0 0 -2px}
+.dia.ext.hoy::after{content:""}
+.marcas{display:flex;flex-wrap:wrap;gap:3px;align-items:center;max-width:100%}
+.mk{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--m);border:2px solid var(--m);flex:none}
+.mk.libre{background:transparent}
+.mk-cl{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--m);flex:none}
+@media (max-width:520px){
+  .dia{min-height:56px;padding:4px 3px 5px;gap:3px}
+  .vacio{min-height:56px}
+  .dia .n{font-size:16px}
+  .mk{width:8px;height:8px;border-width:2px}
+  .mk-cl{width:5px;height:5px}
+  .dia .tg{font-size:9px}
+  .dia.hoy::after{font-size:8.5px;right:2px;top:2px}
+  .grilla,.cab{gap:2px}
+}
+.leyenda{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-size:12.5px;color:var(--tinta-2)}
+.leyenda span{display:inline-flex;align-items:center;gap:6px}
+.lg-sw{display:inline-block;width:16px;height:12px;border-radius:2px;border:1px solid var(--linea)}
+.lg-fest{background:repeating-linear-gradient(135deg,var(--festivo-raya) 0 3px,var(--superficie) 3px 6px)}
+.lg-actos{background:var(--actos-bg)}
+.lg-finales{background:var(--finales-bg)}
+.lg-bar{background:var(--superficie);box-shadow:inset 0 3px 0 var(--senal)}
+.lg-neutro{--m:var(--tinta-2)}
+
+.controles{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--linea)}
+.chk{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:500;min-height:36px}
+.chk input{width:18px;height:18px;accent-color:var(--tinta);margin:0}
+.filtros{display:flex;flex-wrap:wrap;gap:5px;min-width:0}
+.fchip{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 10px;border:1px solid var(--linea);border-radius:999px;background:var(--superficie-2);cursor:pointer;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-weight:600;font-size:15px;letter-spacing:.03em}
+.fchip i{width:10px;height:10px;border-radius:2px;background:var(--m)}
+.fchip[aria-pressed="false"]{opacity:.5;text-decoration:line-through}
+.fchip[aria-pressed="false"] i{background:transparent;border:2px solid var(--m)}
+
+/* ---- lista ---- */
+.selbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.selbar p{margin:0;flex:1;min-width:0;font-size:13.5px;color:var(--tinta-2)}
+.billete{position:relative;background:var(--superficie-2);border:1px solid var(--linea);border-radius:var(--radio);padding:12px 14px 12px 22px;margin-bottom:14px}
+.billete::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:0;border-left:2px dashed var(--linea)}
+.billete-fechas{margin:0;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:24px;font-weight:600;line-height:1.1}
+.billete-fechas .flecha{color:var(--tinta-3);padding:0 4px}
+.billete .dur{font-size:13px;color:var(--tinta-2)}
+.resumen{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px;font-size:14px}
+.resumen li{display:flex;gap:8px;align-items:baseline}
+.resumen li::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;background:var(--tinta-3);transform:translateY(-1px)}
+.resumen li.r-bloquea::before{background:var(--senal)}
+.resumen li.r-faltas::before{background:var(--aviso)}
+.resumen li.r-libre::before{background:var(--via-libre)}
+.resumen li.r-pasa{color:var(--senal);font-weight:600}
+.dia-cab{margin:0 0 4px;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:24px;font-weight:600;line-height:1.1}
+.kicker{margin:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-3);font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px}
+.pill{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--superficie-2);border:1px solid var(--linea);color:var(--tinta-2)}
+.pill.festivo{background:repeating-linear-gradient(135deg,var(--festivo-raya) 0 3px,var(--superficie) 3px 7px);color:var(--festivo-tx)}
+.pill.actos{background:var(--actos-bg)}
+.pill.finales{background:var(--finales-bg)}
+.pill.hito{color:var(--senal);border-color:var(--senal)}
+.bloque{margin-top:14px}
+.bloque h3{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.bloque h3 .cnt{font-variant-numeric:tabular-nums;color:var(--tinta-3)}
+.bloque.b-oblig h3{color:var(--senal)}
+.bloque.b-libre h3{color:var(--tinta-2)}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.item{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;padding:9px 10px;background:var(--superficie);border:1px solid var(--linea);border-left:4px solid var(--m);border-radius:var(--radio)}
+.item>*{min-width:0}
+.cuando{display:flex;flex-direction:column;gap:1px;font-size:13px;color:var(--tinta-2)}
+.cuando .fe{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-weight:600;font-size:16px;color:var(--tinta)}
+.cuando .ho{font-weight:500;color:var(--tinta)}
+.cuando .ho.sc{color:var(--aviso);font-weight:600;font-style:italic}
+.cuando .hx{font-size:11.5px;color:var(--tinta-3)}
+.it-top{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:5px;font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-weight:700;font-size:15px;letter-spacing:.03em}
+.chip i{width:10px;height:10px;border-radius:2px;background:var(--m)}
+.tipo{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:1px 6px;border-radius:3px;border:1px solid var(--linea);color:var(--tinta-2)}
+.tipo.t-examen,.tipo.t-defensa{border-color:var(--senal);color:var(--senal)}
+.tipo.t-clase{border-color:var(--aviso);color:var(--aviso)}
+.asis{font-size:11.5px;font-weight:600;padding:1px 6px;border-radius:3px}
+.asis.si{background:var(--senal-bg);color:var(--senal)}
+.asis.no{background:var(--superficie-2);color:var(--tinta-2)}
+.it-tit{margin:4px 0 0;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.it-nota{margin:3px 0 0;font-size:13px;color:var(--tinta-2);overflow-wrap:anywhere}
+.it-nota.falt{color:var(--aviso);font-weight:500}
+.vacio-txt{margin:8px 0 0;color:var(--tinta-2);font-style:italic}
+.pista{margin:12px 0 0;font-size:13px;color:var(--tinta-3)}
+.aviso-filtro{margin:10px 0 0;font-size:13px;color:var(--aviso);font-weight:600}
+@media (max-width:420px){
+  .item{grid-template-columns:76px minmax(0,1fr);gap:8px;padding:8px}
+  .cuando .fe{font-size:15px}
+}
+.pie{margin-top:18px;font-size:12px;color:var(--tinta-3)}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none !important;animation:none !important;scroll-behavior:auto !important}
+}
+</style>
+
+
+</head>
+<body>
+<div class="app">
+  <header class="tablero">
+    <div>
+      <h1>Findes UPV</h1>
+      <p class="sub">Semestre A 2026/27 · ETSINF · tu finde va de viernes a lunes</p>
+    </div>
+    <div class="hoy" id="hoy"></div>
+    <div class="faltas" id="faltas"></div>
+  </header>
+
+  <div class="cuerpo">
+    <div class="col-cal">
+      <section class="panel" aria-labelledby="t-findes">
+        <h2 class="rot-sec" id="t-findes">Findes que vienen · tocá uno para armar el rango</h2>
+        <div class="findes" id="findes"></div>
+        <button type="button" class="mas" id="mas-findes" hidden></button>
+      </section>
+
+      <section class="panel" style="margin-top:14px" aria-labelledby="mes-titulo">
+        <div class="mesbar">
+          <button type="button" class="btn btn-flecha" id="prev" aria-label="Mes anterior">‹</button>
+          <h2 class="mes-titulo" id="mes-titulo" aria-live="polite"></h2>
+          <button type="button" class="btn" id="ir-hoy">Hoy</button>
+          <button type="button" class="btn btn-flecha" id="next" aria-label="Mes siguiente">›</button>
+        </div>
+        <div class="cab" aria-hidden="true">
+          <span class="vac"></span><span class="brk">finde</span>
+          <span>mar</span><span>mié</span><span>jue</span><span class="fd">vie</span><span class="fd">sáb</span><span class="fd">dom</span><span class="fd">lun</span>
+        </div>
+        <div class="grilla" id="grilla"></div>
+        <div class="leyenda" aria-label="Referencias">
+          <span><i class="mk lg-neutro"></i>examen o defensa (obligatorio)</span>
+          <span><i class="mk libre lg-neutro"></i>entrega u otro</span>
+          <span><i class="mk-cl lg-neutro"></i>clase obligatoria</span>
+          <span><i class="lg-sw lg-bar"></i>día con algo obligatorio</span>
+          <span><i class="lg-sw lg-fest"></i>festivo</span>
+          <span><i class="lg-sw lg-actos"></i>semana de actos</span>
+          <span><i class="lg-sw lg-finales"></i>finales</span>
+        </div>
+        <div class="controles">
+          <label class="chk"><input type="checkbox" id="ver-clases" checked> Mostrar clases</label>
+          <div class="filtros" id="filtros" role="group" aria-label="Filtrar por materia"></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="col-lista panel" aria-labelledby="t-lista">
+      <h2 class="rot-sec" id="t-lista">Qué hay</h2>
+      <div class="selbar">
+        <p id="sel-estado"></p>
+        <button type="button" class="btn" id="limpiar">Limpiar</button>
+      </div>
+      <div id="lista" aria-live="polite"></div>
+      <p class="pie" id="pie"></p>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const D = {"rango":["2026-09-01","2027-01-31"],"materias":{"SSR":"Sistemas y servicios en red","AIV":"Análisis de imágenes y vídeos","AVD":"Análisis, validación y depuración de software","IEI":"Integración e interoperabilidad","TIA":"Técnicas de IA","D3D":"Desarrollo de videojuegos 3D"},"eventos":[{"id":"002","fecha":"2026-09-21","hora":null,"fin":null,"horaTipo":null,"mat":"D3D","titulo":"Entrega: Pitch docs + grupos","tipo":"entrega","oblig":false,"nota":"Primera entrega de la asignatura. Formación de grupos."},{"id":"005","fecha":"2026-09-28","hora":null,"fin":null,"horaTipo":null,"mat":"D3D","titulo":"Entrega: Concept Doc","tipo":"entrega","oblig":false,"nota":""},{"id":"007","fecha":"2026-10-13","hora":"17:00","fin":"19:00","horaTipo":"clase","mat":"TIA","titulo":"Prueba de observación O1 · 5 %","tipo":"examen","oblig":true,"nota":"Prueba de observación simple, en aula (clase de teoría). Ese día falto (Bulgaria): se pierde, no es recuperable."},{"id":"008","fecha":"2026-10-14","hora":"13:00","fin":"14:30","horaTipo":"clase","mat":"IEI","titulo":"Revisión de mappings","tipo":"defensa presencial","oblig":true,"nota":"Sesión de prácticas."},{"id":"009","fecha":"2026-10-19","hora":"08:00","fin":"11:00","horaTipo":"confirmada","mat":"AVD","titulo":"1.º acto de evaluación — Parcial Tema 2 · 20 %","tipo":"examen","oblig":true,"nota":"Aula 1G 1.4. La tabla oficial dice 08:00; la diapositiva del profe dice 9:00 — verificar."},{"id":"011","fecha":"2026-11-02","hora":"18:20","fin":"21:20","horaTipo":"confirmada","mat":"AIV","titulo":"Primer parcial de TEORÍA","tipo":"examen","oblig":true,"nota":"Convocatoria Única A. 180 minutos."},{"id":"012","fecha":"2026-11-03","hora":"11:20","fin":"14:20","horaTipo":"confirmada","mat":"TIA","titulo":"Examen de prácticas en labs DSIC","tipo":"examen","oblig":true,"nota":"Coincidía con el examen de laboratorio de AVD (4IS11/4IS12). Resuelto: el de AVD lo rindo el 13/11 a las 19:00 con el grupo 4IS21."},{"id":"013","fecha":"2026-11-03","hora":"11:20","fin":"14:20","horaTipo":"confirmada","mat":"AVD","titulo":"Examen de laboratorio 4IS11/4IS12 (no voy: solapa con TIA)","tipo":"otro","oblig":false,"nota":"Solapamiento con el examen de prácticas de TIA (mismo día y hora). Este examen de AVD lo rindo el viernes 13/11 a las 19:00 con el grupo de tarde 4IS21."},{"id":"014","fecha":"2026-11-05","hora":null,"fin":null,"horaTipo":null,"mat":"SSR","titulo":"Examen P1 – web (laboratorio) · 1.5 pt","tipo":"examen","oblig":true,"nota":"Se realiza el 5 o el 6 de noviembre según grupo — confirmar.","probable":"probablemente en tu labo de SSR, jue 08:30 (el 6/11 es para el otro grupo)"},{"id":"015","fecha":"2026-11-06","hora":null,"fin":null,"horaTipo":null,"mat":"AIV","titulo":"Entrega práctica: Imagen clásica (L1–L5)","tipo":"entrega","oblig":false,"nota":"ATENCIÓN: en el doc figura como 6/Nov/2024 (curso anterior). Año trasladado a 2026 — VERIFICAR en PoliformaT."},{"id":"017","fecha":"2026-11-09","hora":null,"fin":null,"horaTipo":null,"mat":"D3D","titulo":"Entrega: Prototipo digital (no evaluable) + GDD","tipo":"entrega","oblig":false,"nota":"El prototipo no es evaluable; el GDD sí."},{"id":"018","fecha":"2026-11-11","hora":"09:30","fin":"11:00","horaTipo":"clase","mat":"SSR","titulo":"Prueba de TEORÍA · 3 pt","tipo":"examen","oblig":true,"nota":"Prueba objetiva, en horario de clase. Recuperación el 18/12."},{"id":"019","fecha":"2026-11-12","hora":null,"fin":null,"horaTipo":null,"mat":"SSR","titulo":"Examen de recuperación P1 (laboratorio)","tipo":"examen","oblig":true,"nota":"Semana siguiente al examen P1. Confirmar día exacto (12 o 13 de noviembre).","probable":"probablemente en tu labo de SSR, jue 08:30 (puede ser el vie 13/11)"},{"id":"020","fecha":"2026-11-13","hora":"19:00","fin":"20:30","horaTipo":"confirmada","mat":"AVD","titulo":"Examen de laboratorio en grupo 4IS21 (rindo acá) · 20 %","tipo":"examen","oblig":true,"nota":"Rindo el examen de laboratorio con el grupo de tarde 4IS21 en lugar del de mi grupo (3/11 11:20) por solapamiento con el examen de prácticas de TIA. En laboratorios DSIC según convocatoria de examen. 90 minutos. En el test se dispone del boletín y las transparencias. Recuperable el 19/01/2027."},{"id":"022","fecha":"2026-11-18","hora":"13:00","fin":"14:30","horaTipo":"clase","mat":"IEI","titulo":"Entregable 1: código + demo","tipo":"defensa presencial","oblig":true,"nota":"Peso dentro del proyecto: 35 %. Nota mínima en entregables: 3."},{"id":"023","fecha":"2026-11-18","hora":null,"fin":null,"horaTipo":null,"mat":"SSR","titulo":"Recuperación seminarios 1, 2 y 3","tipo":"examen","oblig":true,"nota":"Oportunidad para los no presentados. Obligatoria solo si te falta recuperar un seminario (te falta uno: el S1 2/2 del 23/9, a confirmar).","probable":"probablemente en la teoría de SSR, mié 09:30"},{"id":"025","fecha":"2026-11-23","hora":"08:00","fin":"11:00","horaTipo":"confirmada","mat":"AVD","titulo":"2.º acto de evaluación — Parcial Tema 3 · 20 %","tipo":"examen","oblig":true,"nota":"Aula 1G 1.4. La diapositiva del profe dice 9:00 — verificar."},{"id":"029","fecha":"2026-11-30","hora":null,"fin":null,"horaTipo":null,"mat":"D3D","titulo":"Entrega: MVP + GDD","tipo":"entrega","oblig":false,"nota":""},{"id":"030","fecha":"2026-12-04","hora":null,"fin":null,"horaTipo":null,"mat":"AIV","titulo":"Entrega práctica: Imagen deep learning (L6–L7)","tipo":"entrega","oblig":false,"nota":"ATENCIÓN: en el doc figura como 4/Dic/2024 (curso anterior). Año trasladado a 2026 — VERIFICAR en PoliformaT."},{"id":"032","fecha":"2026-12-07","hora":"13:00","fin":"14:30","horaTipo":"clase","mat":"TIA","titulo":"Prueba de observación O2 · 5 %","tipo":"examen","oblig":true,"nota":"Prueba de observación simple, en aula. El lunes no hay teoría de TIA: asumo que es en el labo de las 13:00. Confirmalo."},{"id":"034","fecha":"2026-12-10","hora":null,"fin":null,"horaTipo":null,"mat":"SSR","titulo":"Examen P2–P3 (laboratorio) · 1.5 pt","tipo":"examen","oblig":true,"nota":"Se realiza el 10 o el 11 de diciembre según grupo — confirmar. Recuperación la semana siguiente.","probable":"probablemente en tu labo de SSR, jue 08:30 (el 11/12 es para el otro grupo)"},{"id":"035","fecha":"2026-12-11","hora":null,"fin":null,"horaTipo":null,"mat":"SSR","titulo":"Recuperación seminarios 4 y 5","tipo":"examen","oblig":true,"nota":"Oportunidad para los no presentados. Obligatoria solo si te falta recuperar un seminario (te falta uno: el S1 2/2 del 23/9, a confirmar).","probable":"probablemente en la teoría de SSR, vie 11:00"},{"id":"036","fecha":"2026-12-14","hora":"08:00","fin":"11:00","horaTipo":"confirmada","mat":"AVD","titulo":"3.º acto de evaluación — Parcial Tema 4 · 20 %","tipo":"examen","oblig":true,"nota":"Aula 1G 1.4. La diapositiva del profe dice 9:00 — verificar."},{"id":"037","fecha":"2026-12-15","hora":null,"fin":null,"horaTipo":null,"mat":"AVD","titulo":"Presentaciones proyecto AVD-PIN (15–18/12) · 10 % + 10 %","tipo":"defensa presencial","oblig":true,"nota":"Presentaciones del 15 al 18 de diciembre, en laboratorio y en aula de teoría.","hasta":"2026-12-18","probable":"probablemente en tu labo (mié 16/12 11:30) o en tu teoría (jue 17/12 10:30)"},{"id":"038","fecha":"2026-12-17","hora":null,"fin":null,"horaTipo":null,"mat":"D3D","titulo":"Playtesting — Feria de proyectos ETSINF","tipo":"defensa presencial","oblig":true,"nota":"","probable":"tu labo de D3D es el jue 15:00, pero la feria es de la ETSINF"},{"id":"039","fecha":"2026-12-17","hora":null,"fin":null,"horaTipo":null,"mat":"SSR","titulo":"Examen de recuperación P2–P3 (laboratorio)","tipo":"examen","oblig":true,"nota":"Semana del 14/12 — confirmar día exacto.","probable":"semana del 14/12; probablemente tu labo de SSR, jue 08:30"},{"id":"040","fecha":"2026-12-18","hora":"11:00","fin":"12:30","horaTipo":"clase","mat":"SSR","titulo":"Recuperación prueba de TEORÍA + seminarios","tipo":"examen","oblig":true,"nota":"En horario de clase (viernes). Recuperación de teoría (si la necesitás) + seminarios. Obligatoria solo si te falta recuperar un seminario (te falta uno: el S1 2/2 del 23/9, a confirmar)."},{"id":"041","fecha":"2026-12-21","hora":null,"fin":null,"horaTipo":null,"mat":"D3D","titulo":"Examen de Unity","tipo":"examen","oblig":true,"nota":"","probable":"quizás en la teoría de D3D, lun 16:30"},{"id":"042","fecha":"2027-01-03","hora":null,"fin":null,"horaTipo":null,"mat":"AIV","titulo":"Entrega práctica: Vídeo (L8–L10)","tipo":"entrega","oblig":false,"nota":"ATENCIÓN: en el doc figura como 3/Ene/2025 (curso anterior). Año trasladado a 2027 — VERIFICAR en PoliformaT."},{"id":"043","fecha":"2027-01-07","hora":"08:00","fin":"11:00","horaTipo":"confirmada","mat":"TIA","titulo":"Examen final","tipo":"examen","oblig":true,"nota":"Convocatoria Única A. Se construye sobre lo hecho en prácticas: llevar tus soluciones. Mínimo 4/10 para superar la asignatura."},{"id":"044","fecha":"2027-01-07","hora":null,"fin":null,"horaTipo":null,"mat":"IEI","titulo":"Entregable 2: aplicación finalizada","tipo":"entrega","oblig":false,"nota":"El doc dice 07/01; la diapositiva de evaluación dice 'máx. 8 enero 2027'. Peso 30 % del proyecto."},{"id":"045","fecha":"2027-01-08","hora":"08:00","fin":"11:00","horaTipo":"confirmada","mat":"TIA","titulo":"Examen de prácticas en labs DSIC","tipo":"examen","oblig":true,"nota":"Convocatoria Única A."},{"id":"046","fecha":"2027-01-11","hora":"15:00","fin":"18:00","horaTipo":"confirmada","mat":"AIV","titulo":"Segundo parcial de TEORÍA","tipo":"examen","oblig":true,"nota":"Convocatoria Única A."},{"id":"047","fecha":"2027-01-12","hora":"11:20","fin":"14:20","horaTipo":"confirmada","mat":"IEI","titulo":"Prueba escrita de respuesta abierta · 35 %","tipo":"examen","oblig":true,"nota":"Nota mínima 4 para superar la asignatura. Recuperación el 27/01."},{"id":"048","fecha":"2027-01-19","hora":"08:00","fin":"11:00","horaTipo":"confirmada","mat":"AVD","titulo":"Examen final / recuperación de TEORÍA","tipo":"examen","oblig":true,"nota":"Aula 1G 0.1. Recupera los parciales T2, T3 y T4."},{"id":"049","fecha":"2027-01-19","hora":"11:20","fin":"14:20","horaTipo":"confirmada","mat":"AVD","titulo":"Recuperación de prácticas en laboratorio","tipo":"examen","oblig":true,"nota":"CHOQUE con la recuperación de prácticas de TIA (mismo día y hora)."},{"id":"050","fecha":"2027-01-19","hora":"11:20","fin":"14:20","horaTipo":"confirmada","mat":"TIA","titulo":"Recuperación de prácticas","tipo":"examen","oblig":true,"nota":"CHOQUE con la recuperación de prácticas de AVD (mismo día y hora)."},{"id":"051","fecha":"2027-01-20","hora":"11:20","fin":"14:20","horaTipo":"confirmada","mat":"TIA","titulo":"Recuperación de teoría","tipo":"examen","oblig":true,"nota":""},{"id":"052","fecha":"2027-01-25","hora":"15:00","fin":"18:00","horaTipo":"confirmada","mat":"AIV","titulo":"Recuperación","tipo":"examen","oblig":true,"nota":"Convocatoria Única A."},{"id":"053","fecha":"2027-01-27","hora":"15:00","fin":"18:00","horaTipo":"confirmada","mat":"IEI","titulo":"Recuperación prueba escrita de respuesta abierta","tipo":"examen","oblig":true,"nota":"La diapositiva dice '27/01/2026' — errata evidente, se asume 2027."}],"clases":[{"fecha":"2026-09-08","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-09-14","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-09-15","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-09-16","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-09-21","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-09-22","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-09-23","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-09-28","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-09-29","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-09-30","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-10-05","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-10-06","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-10-07","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)","nota":"Faltaste. Ya está descontada.","descontada":true},{"fecha":"2026-10-13","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3","nota":"Falta planeada (Bulgaria). Ya está descontada.","descontada":true},{"fecha":"2026-10-14","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-10-19","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-10-20","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-10-21","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-10-26","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8","nota":"Falta planeada (Marruecos). Ya está descontada.","descontada":true},{"fecha":"2026-10-27","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3","nota":"Falta planeada (Marruecos). Ya está descontada.","descontada":true},{"fecha":"2026-10-28","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-11-09","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-11-10","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-11-11","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-11-16","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-11-17","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-11-18","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-11-23","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-11-24","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-11-25","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-11-30","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-12-01","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-12-02","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-12-07","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-12-09","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-12-14","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-12-15","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3"},{"fecha":"2026-12-16","hora":"13:00","fin":"14:30","mat":"IEI","kind":"P","lugar":"L. 1E 2.1 (LAB. GEORGE BOOLE)"},{"fecha":"2026-12-21","hora":"13:00","fin":"14:30","mat":"TIA","kind":"P","lugar":"LAB. DSIC 8"},{"fecha":"2026-12-22","hora":"17:00","fin":"19:00","mat":"TIA","kind":"T","lugar":"AULA 1G 1.3","nota":"Falta planeada (Lisboa). Ya está descontada.","descontada":true}],"faltas":{"TIA-T":{"quedan":1,"detalle":"0 si se confirma la posible falta de septiembre · ya descontadas: 13/10 (Bulgaria), 27/10 (Marruecos) y 22/12 (Lisboa)","regla":"mín. 70 % de asistencia"},"TIA-P":{"quedan":2,"detalle":"ya descontada: 26/10 (Marruecos)","regla":"mín. 70 % de asistencia"},"IEI-P":{"quedan":1,"detalle":"ya descontada: 7/10","regla":"máx. 20 % de ausencia; en el labo toman lista"}},"faltasActualizado":"8/10","marcas":{"festivos":[["2026-10-09","Festivo: Día de la Comunitat Valenciana"],["2026-10-12","Festivo: Fiesta Nacional"],["2026-12-08","Festivo: Inmaculada Concepción"],["2026-12-23","Festivo: Navidad"],["2026-12-24","Festivo: Navidad"],["2026-12-25","Festivo: Navidad"]],"puntuales":[["2026-12-22","Fin de docencia"]],"periodos":[["2026-10-29","2026-11-04","actos","Semana de actos de evaluación ETSINF"],["2027-01-07","2027-01-29","finales","Período de exámenes finales"]]},"generado":"2026-10-08"};
+  const MATS = ['SSR', 'AIV', 'AVD', 'IEI', 'TIA', 'D3D'];
+  const DIAS = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+  const DIAS_L = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const LS = 'findesUPV.verClases';
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const pad = (n) => String(n).padStart(2, '0');
+  const clave = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const parse = (k) => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
+  const sumar = (k, n) => { const d = parse(k); d.setDate(d.getDate() + n); return clave(d); };
+  const dif = (a, b) => Math.round((parse(b) - parse(a)) / 864e5);
+  const fmtC = (k) => { const d = parse(k); return `${DIAS[d.getDay()]} ${d.getDate()}/${d.getMonth() + 1}`; };
+  const fmtL = (k) => { const d = parse(k); return `${DIAS_L[d.getDay()]} ${d.getDate()} de ${MESES[d.getMonth()]}`; };
+  const mv = (m) => `--m:var(--m-${m.toLowerCase()})`;
+  const plural = (n, s, p) => `${n} ${n === 1 ? s : p}`;
+
+  const [R0, R1] = D.rango;
+  const enRango = (k) => k >= R0 && k <= R1;
+  const HOY = clave(new Date());
+
+  // ---------- índice por día ----------
+  const porDia = new Map();
+  const celda = (k) => { let s = porDia.get(k); if (!s) { s = { ev: [], cl: [] }; porDia.set(k, s); } return s; };
+  D.eventos.forEach((e) => { for (let k = e.fecha; k <= (e.hasta || e.fecha); k = sumar(k, 1)) celda(k).ev.push(e); });
+  D.clases.forEach((c) => { c.clase = true; celda(c.fecha).cl.push(c); });
+  const FEST = new Map(D.marcas.festivos);
+  const PUNT = new Map(D.marcas.puntuales);
+  const marcasDe = (k) => {
+    const out = [];
+    if (FEST.has(k)) out.push({ cls: 'festivo', txt: FEST.get(k) });
+    if (PUNT.has(k)) out.push({ cls: 'hito', txt: PUNT.get(k) });
+    D.marcas.periodos.forEach(([a, b, c, t]) => { if (k >= a && k <= b) out.push({ cls: c, txt: t }); });
+    return out;
+  };
+  const periodoDe = (k) => { for (const [a, b, c] of D.marcas.periodos) if (k >= a && k <= b) return c; return null; };
+
+  // ---------- estado ----------
+  let verClases = true;
+  try { const v = localStorage.getItem(LS); if (v !== null) verClases = v === '1'; } catch (e) { /* sin storage */ }
+  const ocultas = new Set();
+  let sel = { ini: null, fin: null };
+  let todosFindes = false;
+  const MIN_M = (() => { const d = parse(R0); return d.getFullYear() * 12 + d.getMonth(); })();
+  const MAX_M = (() => { const d = parse(R1); return d.getFullYear() * 12 + d.getMonth(); })();
+  const mesDeHoy = () => { if (enRango(HOY)) { const d = parse(HOY); return d.getFullYear() * 12 + d.getMonth(); } return 2026 * 12 + 9; };
+  let mes = mesDeHoy();
+
+  const visible = (x) => !ocultas.has(x.mat);
+  const porHora = (a, b) => (a.fecha < b.fecha ? -1 : a.fecha > b.fecha ? 1 : 0) || ((a.hora || '99') < (b.hora || '99') ? -1 : (a.hora || '99') > (b.hora || '99') ? 1 : 0);
+
+  const faltaInfo = (c) => D.faltas[`${c.mat}-${c.kind}`];
+  const nomKind = (k) => (k === 'T' ? 'teoría' : 'labo');
+
+  // ---------- tablero ----------
+  $('hoy').innerHTML = `<small>hoy</small>${esc(fmtC(HOY))}`;
+  $('faltas').innerHTML = `<span class="rot">Faltas que te quedan (al ${esc(D.faltasActualizado)})</span>` +
+    Object.entries(D.faltas).map(([k, f]) => { const [m, t] = k.split('-'); return `<span>${esc(m)} ${nomKind(t)}<b class="num-t">${f.quedan}</b></span>`; }).join('');
+  $('pie').textContent = `Datos generados el ${D.generado} desde los .ics de VALENCIA/travel. Clases: solo las de asistencia obligatoria (TIA teoría y labo, IEI labo).`;
+
+  // ---------- filtros ----------
+  const chk = $('ver-clases');
+  chk.checked = verClases;
+  chk.addEventListener('change', () => {
+    verClases = chk.checked;
+    try { localStorage.setItem(LS, verClases ? '1' : '0'); } catch (e) { /* sin storage */ }
+    render();
+  });
+  $('filtros').innerHTML = MATS.map((m) => `<button type="button" class="fchip" style="${mv(m)}" data-m="${m}" aria-pressed="true" title="${esc(D.materias[m])}"><i></i>${m}</button>`).join('');
+  $('filtros').addEventListener('click', (ev) => {
+    const b = ev.target.closest('.fchip'); if (!b) return;
+    const m = b.dataset.m;
+    if (ocultas.has(m)) ocultas.delete(m); else ocultas.add(m);
+    b.setAttribute('aria-pressed', String(!ocultas.has(m)));
+    render();
+  });
+
+  // ---------- findes ----------
+  function estadoFinde(a) {
+    const b = sumar(a, 3);
+    const evs = new Map(); const cls = [];
+    for (let k = a; k <= b; k = sumar(k, 1)) {
+      const s = porDia.get(k); if (!s) continue;
+      s.ev.forEach((e) => { if (e.oblig) evs.set(e.id, e); });
+      s.cl.forEach((c) => { if (!c.descontada) cls.push(c); });
+    }
+    const puente = FEST.has(a) || FEST.has(b);
+    let est, txt;
+    if (evs.size) {
+      est = 'bloquea';
+      txt = [...evs.values()].map((e) => `${e.mat} ${e.tipo === 'defensa presencial' ? 'defensa' : e.tipo}`).filter((v, i, arr) => arr.indexOf(v) === i).join(', ');
+    } else if (cls.length) {
+      est = 'faltas';
+      const g = {}; cls.forEach((c) => { const k = `${c.mat} ${nomKind(c.kind)}`; g[k] = (g[k] || 0) + 1; });
+      txt = 'gasta: ' + Object.entries(g).map(([k, n]) => (n > 1 ? `${k} ×${n}` : k)).join(', ');
+    } else { est = 'libre'; txt = 'libre'; }
+    if (puente) txt += ' · puente';
+    return { est, txt };
+  }
+  function listaFindes() {
+    const desde = HOY > R0 ? HOY : R0;
+    let k = desde; while (parse(k).getDay() !== 5) k = sumar(k, -1);
+    if (sumar(k, 3) < desde) k = sumar(k, 7);
+    const out = []; for (; k <= R1; k = sumar(k, 7)) out.push(k);
+    return out;
+  }
+  const FINDES = listaFindes();
+  function renderFindes() {
+    const vis = todosFindes ? FINDES : FINDES.slice(0, 6);
+    $('findes').innerHTML = vis.length ? vis.map((a) => {
+      const b = sumar(a, 3); const s = estadoFinde(a);
+      const on = sel.ini === a && sel.fin === b;
+      return `<button type="button" class="finde est-${s.est}" data-a="${a}" aria-pressed="${on}"><span class="f-fechas">${esc(fmtC(a))} → ${esc(fmtC(b))}</span><span class="f-est">${esc(s.txt)}</span></button>`;
+    }).join('') : '<p class="vacio-txt">No quedan findes dentro del semestre.</p>';
+    const mb = $('mas-findes');
+    if (FINDES.length > 6) { mb.hidden = false; mb.textContent = todosFindes ? 'Ver menos findes' : `Ver los ${FINDES.length - 6} findes que siguen`; } else mb.hidden = true;
+  }
+  $('findes').addEventListener('click', (ev) => {
+    const b = ev.target.closest('.finde'); if (!b) return;
+    const a = b.dataset.a; sel = { ini: a, fin: sumar(a, 3) };
+    const d = parse(a); mes = d.getFullYear() * 12 + d.getMonth();
+    render();
+  });
+  $('mas-findes').addEventListener('click', () => { todosFindes = !todosFindes; renderFindes(); });
+
+  // ---------- grilla ----------
+  function renderGrilla() {
+    const y = Math.floor(mes / 12), m = mes % 12;
+    $('mes-titulo').textContent = `${MESES[m]} ${y}`;
+    $('prev').disabled = mes <= MIN_M; $('next').disabled = mes >= MAX_M;
+    const first = new Date(y, m, 1), last = new Date(y, m + 1, 0);
+    let k = sumar(clave(first), -((first.getDay() + 5) % 7));
+    const fin = sumar(clave(last), 6 - ((last.getDay() + 5) % 7));
+    let html = '', col = 0;
+    for (; k <= fin; k = sumar(k, 1), col = (col + 1) % 7) {
+      if (!enRango(k)) { html += '<div class="vacio" aria-hidden="true"></div>'; continue; }
+      const d = parse(k);
+      const s = porDia.get(k) || { ev: [], cl: [] };
+      const evs = s.ev.filter(visible);
+      const cls = verClases ? s.cl.filter(visible) : [];
+      const bloquea = evs.some((e) => e.oblig);
+      const fest = FEST.has(k), hito = PUNT.has(k), per = periodoDe(k);
+      const c = ['dia'];
+      if (col >= 3) c.push('finde-col');
+      if (per) c.push('p-' + per);
+      if (fest) c.push('festivo');
+      if (d.getMonth() !== m) c.push('fuera');
+      if (k === HOY) c.push('hoy');
+      if (bloquea) c.push('bloquea');
+      let pressed = false;
+      if (sel.ini && sel.fin) {
+        if (k >= sel.ini && k <= sel.fin) c.push('en-rango');
+        if (k === sel.ini || k === sel.fin) { c.push('ext'); pressed = true; }
+      } else if (sel.ini === k) { c.push('ext'); pressed = true; }
+      const partes = [fmtL(k)];
+      if (fest) partes.push('festivo');
+      if (hito) partes.push(PUNT.get(k).toLowerCase());
+      if (k === HOY) partes.push('hoy');
+      if (evs.length) partes.push(plural(evs.length, 'evento', 'eventos') + (bloquea ? ', con asistencia obligatoria' : ''));
+      if (cls.length) partes.push(plural(cls.length, 'clase obligatoria', 'clases obligatorias'));
+      const marcas = evs.map((e) => `<i class="mk${e.oblig ? '' : ' libre'}" style="${mv(e.mat)}"></i>`).join('') +
+        cls.map((x) => `<i class="mk-cl" style="${mv(x.mat)}"></i>`).join('');
+      const tg = fest ? '<span class="tg">festivo</span>' : hito ? '<span class="tg fin">fin clases</span>' : '';
+      html += `<button type="button" class="${c.join(' ')}" data-k="${k}" aria-pressed="${pressed}" aria-label="${esc(partes.join('. '))}" tabindex="-1">` +
+        `<span class="n">${d.getDate()}</span>${tg}<span class="marcas">${marcas}</span></button>`;
+    }
+    $('grilla').innerHTML = html;
+    // un solo tab-stop en la grilla (roving tabindex)
+    const foco = $('grilla').querySelector(`[data-k="${sel.fin || sel.ini || ''}"]`) || $('grilla').querySelector(`[data-k="${HOY}"]`) || $('grilla').querySelector('.dia:not(.fuera)');
+    if (foco) foco.tabIndex = 0;
+  }
+  function tocar(k) {
+    if (!sel.ini || sel.fin) sel = { ini: k, fin: null };
+    else if (k < sel.ini) sel = { ini: k, fin: sel.ini };
+    else sel = { ini: sel.ini, fin: k };
+    render();
+  }
+  $('grilla').addEventListener('click', (ev) => { const b = ev.target.closest('.dia'); if (b) tocar(b.dataset.k); });
+  $('grilla').addEventListener('keydown', (ev) => {
+    const b = ev.target.closest('.dia'); if (!b) return;
+    const paso = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[ev.key];
+    if (!paso) return;
+    ev.preventDefault();
+    const k = sumar(b.dataset.k, paso);
+    if (!enRango(k)) return;
+    const d = parse(k); const mm = d.getFullYear() * 12 + d.getMonth();
+    if (!$('grilla').querySelector(`[data-k="${k}"]`)) { mes = mm; renderGrilla(); }
+    const t = $('grilla').querySelector(`[data-k="${k}"]`);
+    if (t) { $('grilla').querySelectorAll('.dia').forEach((x) => { x.tabIndex = -1; }); t.tabIndex = 0; t.focus(); }
+  });
+  $('prev').addEventListener('click', () => { if (mes > MIN_M) { mes--; renderGrilla(); } });
+  $('next').addEventListener('click', () => { if (mes < MAX_M) { mes++; renderGrilla(); } });
+  $('ir-hoy').addEventListener('click', () => { mes = mesDeHoy(); renderGrilla(); });
+  $('limpiar').addEventListener('click', () => { sel = { ini: null, fin: null }; render(); });
+
+  // ---------- lista ----------
+  function horaHTML(x) {
+    if (x.hora) {
+      const extra = x.horaTipo === 'clase' ? '<span class="hx">en horario de clase</span>' : '';
+      return `<span class="ho">${esc(x.hora)}–${esc(x.fin)}</span>${extra}`;
+    }
+    return '<span class="ho sc">hora sin confirmar</span>';
+  }
+  function itemHTML(x) {
+    const fecha = x.hasta ? `${fmtC(x.fecha)} – ${fmtC(x.hasta)}` : fmtC(x.fecha);
+    let tipo, tcls, tit, notas = [];
+    if (x.clase) {
+      tipo = 'clase'; tcls = 't-clase';
+      tit = `${x.kind === 'T' ? 'Teoría' : 'Labo'}${x.lugar ? ' · ' + x.lugar : ''}`;
+      if (x.nota) notas.push(`<p class="it-nota">${esc(x.nota)}</p>`);
+      const f = faltaInfo(x);
+      if (f) notas.push(`<p class="it-nota falt">Te ${f.quedan === 1 ? 'queda' : 'quedan'} ${plural(f.quedan, 'falta', 'faltas')} de ${nomKind(x.kind)} (${esc(f.regla)})${f.detalle ? ' · ' + esc(f.detalle) : ''}</p>`);
+    } else {
+      tipo = x.tipo; tcls = x.tipo === 'examen' ? 't-examen' : x.tipo === 'defensa presencial' ? 't-defensa' : '';
+      tit = x.titulo;
+      if (x.probable) notas.push(`<p class="it-nota">Pista de hora: ${esc(x.probable)}.</p>`);
+      if (x.nota) notas.push(`<p class="it-nota">${esc(x.nota)}</p>`);
+    }
+    const oblig = x.clase ? true : x.oblig;
+    return `<li class="item" style="${mv(x.mat)}">` +
+      `<div class="cuando"><span class="fe">${esc(fecha)}</span>${horaHTML(x)}</div>` +
+      `<div><div class="it-top"><span class="chip" title="${esc(D.materias[x.mat] || '')}"><i></i>${esc(x.mat)}</span>` +
+      `<span class="tipo ${tcls}">${esc(tipo)}</span><span class="asis ${oblig ? 'si' : 'no'}">${oblig ? 'obligatoria' : 'no obligatoria'}</span></div>` +
+      `<p class="it-tit">${esc(tit)}</p>${notas.join('')}</div></li>`;
+  }
+  const pillsHTML = (ms) => (ms.length ? `<div class="pills">${ms.map((x) => `<span class="pill ${x.cls}">${esc(x.txt)}</span>`).join('')}</div>` : '');
+  const avisoFiltro = () => (ocultas.size ? `<p class="aviso-filtro">Ojo: estás ocultando ${[...ocultas].join(', ')} con el filtro.</p>` : '');
+
+  function renderDia(k, esHoy) {
+    const s = porDia.get(k) || { ev: [], cl: [] };
+    const items = s.ev.filter(visible).concat(verClases ? s.cl.filter(visible) : []).sort(porHora);
+    let h = `<p class="kicker">${esHoy ? 'Hoy' : 'Día elegido'}</p><h3 class="dia-cab">${esc(fmtL(k))}</h3>${pillsHTML(marcasDe(k))}`;
+    h += items.length ? `<ul class="items">${items.map(itemHTML).join('')}</ul>` : '<p class="vacio-txt">Nada anotado este día.</p>';
+    if (!verClases && s.cl.some(visible)) h += `<p class="pista">Hay ${plural(s.cl.filter(visible).length, 'clase obligatoria oculta', 'clases obligatorias ocultas')} ("Mostrar clases" está apagado).</p>`;
+    h += avisoFiltro();
+    return h;
+  }
+
+  function renderRango(a, b) {
+    const evs = new Map(); const cls = []; const marcas = new Map();
+    for (let k = a; k <= b; k = sumar(k, 1)) {
+      const s = porDia.get(k);
+      if (s) { s.ev.filter(visible).forEach((e) => evs.set(e.id, e)); cls.push(...s.cl.filter(visible)); }
+      marcasDe(k).forEach((x) => { const key = x.cls + x.txt; if (!marcas.has(key)) marcas.set(key, { cls: x.cls, txt: x.cls === 'festivo' || x.cls === 'hito' ? `${x.txt} (${fmtC(k)})` : x.txt }); });
+    }
+    const ev = [...evs.values()];
+    const oblig = ev.filter((e) => e.oblig).concat(cls).sort(porHora);
+    const libre = ev.filter((e) => !e.oblig).sort(porHora);
+    const actos = ev.filter((e) => e.oblig);
+    const dias = dif(a, b) + 1;
+
+    const res = [];
+    if (actos.length) res.push(`<li class="r-bloquea">${plural(actos.length, 'acto obligatorio', 'actos obligatorios')}: ${esc(actos.map((e) => `${e.mat} ${e.tipo === 'defensa presencial' ? 'defensa' : e.tipo} (${fmtC(e.fecha)})`).join(', '))}</li>`);
+    else res.push('<li class="r-libre">Sin exámenes ni defensas</li>');
+    const g = new Map(); let desc = 0;
+    cls.forEach((c) => { if (c.descontada) { desc++; return; } const k = `${c.mat}-${c.kind}`; g.set(k, (g.get(k) || 0) + 1); });
+    if (g.size) {
+      [...g.entries()].forEach(([k, n]) => {
+        const f = D.faltas[k]; const [m, t] = k.split('-'); const q = f.quedan - n;
+        res.push(`<li class="${q < 0 ? 'r-pasa' : 'r-faltas'}">Perdés ${m} ${nomKind(t)} ×${n}: te quedan ${f.quedan} → quedarían ${q}${q < 0 ? ' (te pasás del tope)' : ''}</li>`);
+      });
+    } else if (!desc) res.push('<li class="r-libre">No perdés clases con asistencia obligatoria</li>');
+    if (desc) res.push(`<li>${plural(desc, 'clase', 'clases')} del rango ya ${desc === 1 ? 'está descontada' : 'están descontadas'} de las faltas</li>`);
+    if (libre.length) res.push(`<li>${plural(libre.length, 'cosa no obligatoria', 'cosas no obligatorias')} (entregas y otros)</li>`);
+
+    let h = `<div class="billete"><p class="kicker">Rango elegido</p><p class="billete-fechas">${esc(fmtC(a))}<span class="flecha">→</span>${esc(fmtC(b))}</p>` +
+      `<span class="dur">${plural(dias, 'día', 'días')}</span>${pillsHTML([...marcas.values()])}<ul class="resumen">${res.join('')}</ul>${avisoFiltro()}</div>`;
+    h += `<div class="bloque b-oblig"><h3>Asistencia obligatoria <span class="cnt">${oblig.length}</span></h3>` +
+      (oblig.length ? `<ul class="items">${oblig.map(itemHTML).join('')}</ul>` : '<p class="vacio-txt">Nada obligatorio en este rango.</p>') + '</div>';
+    h += `<div class="bloque b-libre"><h3>No obligatoria <span class="cnt">${libre.length}</span></h3>` +
+      (libre.length ? `<ul class="items">${libre.map(itemHTML).join('')}</ul>` : '<p class="vacio-txt">Nada.</p>') + '</div>';
+    h += '<p class="pista">En el rango se ven siempre las clases obligatorias, aunque "Mostrar clases" esté apagado.</p>';
+    return h;
+  }
+
+  function renderLista() {
+    let h, est;
+    if (sel.ini && sel.fin) {
+      h = renderRango(sel.ini, sel.fin);
+      est = 'Tocá cualquier día para empezar otro rango.';
+    } else if (sel.ini) {
+      h = renderDia(sel.ini, false);
+      est = `Inicio: ${fmtC(sel.ini)}. Tocá otro día para cerrar el rango.`;
+    } else {
+      const k = enRango(HOY) ? HOY : '2026-10-01';
+      h = renderDia(k, k === HOY);
+      est = 'Tocá un día para ver qué hay; tocá otro para armar un rango.';
+    }
+    $('lista').innerHTML = h;
+    $('sel-estado').textContent = est;
+    $('limpiar').disabled = !sel.ini;
+  }
+
+  function render() { renderFindes(); renderGrilla(); renderLista(); }
+  render();
+})();
+</script>
+
+</body>
+</html>
