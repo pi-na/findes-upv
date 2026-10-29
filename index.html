@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>
 :root{
-  /* Concepto: tablero de andén. La semana arranca el martes para que el finde (vie→lun) quede en un solo bloque de 4 columnas; el rango elegido se lee como un billete perforado. Tokens con nombre: --tinta, --papel, --anden, --senal, --aviso, --via-libre */
+  /* Concepto: tablero de andén. La semana arranca el lunes (como Google Calendar); el finde (vie→lun) queda resaltado en las columnas vie–dom más el lunes de la izquierda. El rango elegido se lee como un billete perforado. Tokens con nombre: --tinta, --papel, --anden, --senal, --aviso, --via-libre */
   --papel:#eceff3;
   --superficie:#ffffff;
   --superficie-2:#f5f7f9;
@@ -171,8 +171,9 @@ button{font:inherit;color:inherit}
 .btn-flecha{font-size:20px;line-height:1;padding:0}
 .cab{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;margin-bottom:3px}
 .cab span{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta-2);text-align:center;padding:2px 0}
-.cab .brk{grid-column:4/8;border-bottom:2px solid var(--tinta);color:var(--tinta);padding:0 0 2px}
-.cab .vac{grid-column:1/4}
+.cab .brk{grid-column:5/8;border-bottom:2px solid var(--tinta);color:var(--tinta);padding:0 0 2px}
+.cab .vac{grid-column:2/5}
+.cab .brk-lun{grid-column:1/2}
 .cab .fd{color:var(--tinta)}
 .grilla{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
 .vacio{min-height:64px}
@@ -316,8 +317,8 @@ button{font:inherit;color:inherit}
           <button type="button" class="btn btn-flecha" id="next" aria-label="Mes siguiente">›</button>
         </div>
         <div class="cab" aria-hidden="true">
-          <span class="vac"></span><span class="brk">finde</span>
-          <span>mar</span><span>mié</span><span>jue</span><span class="fd">vie</span><span class="fd">sáb</span><span class="fd">dom</span><span class="fd">lun</span>
+          <span class="brk brk-lun">finde</span><span class="vac"></span><span class="brk">finde</span>
+          <span class="fd">lun</span><span>mar</span><span>mié</span><span>jue</span><span class="fd">vie</span><span class="fd">sáb</span><span class="fd">dom</span>
         </div>
         <div class="grilla" id="grilla"></div>
         <div class="leyenda" aria-label="Referencias">
@@ -484,8 +485,8 @@ button{font:inherit;color:inherit}
     $('mes-titulo').textContent = `${MESES[m]} ${y}`;
     $('prev').disabled = mes <= MIN_M; $('next').disabled = mes >= MAX_M;
     const first = new Date(y, m, 1), last = new Date(y, m + 1, 0);
-    let k = sumar(clave(first), -((first.getDay() + 5) % 7));
-    const fin = sumar(clave(last), 6 - ((last.getDay() + 5) % 7));
+    let k = sumar(clave(first), -((first.getDay() + 6) % 7));
+    const fin = sumar(clave(last), 6 - ((last.getDay() + 6) % 7));
     let html = '', col = 0;
     for (; k <= fin; k = sumar(k, 1), col = (col + 1) % 7) {
       if (!enRango(k)) { html += '<div class="vacio" aria-hidden="true"></div>'; continue; }
@@ -496,7 +497,7 @@ button{font:inherit;color:inherit}
       const bloquea = evs.some((e) => e.oblig);
       const fest = FEST.has(k), hito = PUNT.has(k), per = periodoDe(k);
       const c = ['dia'];
-      if (col >= 3) c.push('finde-col');
+      if (col === 0 || col >= 4) c.push('finde-col');
       if (per) c.push('p-' + per);
       if (fest) c.push('festivo');
       if (d.getMonth() !== m) c.push('fuera');
