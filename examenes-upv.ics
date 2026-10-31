@@ -1,0 +1,316 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//pina-vault//Findes UPV examenes//ES
+CALSCALE:GREGORIAN
+X-WR-CALNAME:UPV — Exámenes (para Google Flights)
+X-WR-TIMEZONE:Europe/Madrid
+BEGIN:VEVENT
+UID:upv-sema-2026a-007@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261013T170000
+DTEND;TZID=Europe/Madrid:20261013T190000
+SUMMARY:TIA — Prueba de observación O1 · 5 %
+CATEGORIES:TIA
+X-FINDES-TIPO:examen
+DESCRIPTION:Prueba de observación simple\, en aula (clase de teoría). Ese día falto (Bulgaria): se pierde\, no es recuperable.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-008@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261014T130000
+DTEND;TZID=Europe/Madrid:20261014T143000
+SUMMARY:IEI — Revisión de mappings
+CATEGORIES:IEI
+X-FINDES-TIPO:defensa presencial
+DESCRIPTION:Sesión de prácticas.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-009@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261019T080000
+DTEND;TZID=Europe/Madrid:20261019T110000
+SUMMARY:AVD — 1.º acto de evaluación — Parcial Tema 2 · 20 %
+CATEGORIES:AVD
+X-FINDES-TIPO:examen
+DESCRIPTION:Aula 1G 1.4. La tabla oficial dice 08:00\; la diapositiva del profe dice 9:00 — verificar.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-011@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261102T182000
+DTEND;TZID=Europe/Madrid:20261102T212000
+SUMMARY:AIV — Primer parcial de TEORÍA
+CATEGORIES:AIV
+X-FINDES-TIPO:examen
+DESCRIPTION:Convocatoria Única A. 180 minutos.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-012@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261103T112000
+DTEND;TZID=Europe/Madrid:20261103T142000
+SUMMARY:TIA — Examen de prácticas en labs DSIC
+CATEGORIES:TIA
+X-FINDES-TIPO:examen
+DESCRIPTION:Coincidía con el examen de laboratorio de AVD (4IS11/4IS12). Resuelto: el de AVD lo rindo el 13/11 a las 19:00 con el grupo 4IS21.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-014@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261105T083000
+DTEND;TZID=Europe/Madrid:20261105T100000
+SUMMARY:SSR — Examen P1 – web (laboratorio) · 1.5 pt
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:Se realiza el 5 o el 6 de noviembre según grupo — confirmar. En tu labo de SSR (jue 08:30). El 6/11 es para el otro grupo.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-019@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261112T083000
+DTEND;TZID=Europe/Madrid:20261112T100000
+SUMMARY:SSR — Examen de recuperación P1 (laboratorio)
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:Semana siguiente al examen P1. Confirmar día exacto (12 o 13 de noviembre). En tu labo de SSR (jue 08:30): la planificación nueva pone la recuperación de P1 en el labo de la semana del 9/11.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-020@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261113T190000
+DTEND;TZID=Europe/Madrid:20261113T203000
+SUMMARY:AVD — Examen de laboratorio en grupo 4IS21 (rindo acá) · 20 %
+CATEGORIES:AVD
+X-FINDES-TIPO:examen
+DESCRIPTION:Examen de laboratorio con el grupo de tarde **4IS21\, vie 13/11 19:00-20:30\, Labs 0 y 5** (confirmado 20/10). Lo rindo acá en lugar del de mi grupo (4IS11\, mar 3/11 11:20) por el solapamiento con el examen de prácticas de TIA.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-018@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261118T093000
+DTEND;TZID=Europe/Madrid:20261118T110000
+SUMMARY:SSR — Prueba de TEORÍA · 3 pt
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:Prueba objetiva\, en horario de clase. Recuperación el vie 18/12. FECHA FIRME 18/11: el profe la movió del 11/11 por la reorganización de la huelga (mails del 8/10 y del 12/10) y así figura en la planificación nueva de PoliformaT (semana del 16-nov\, miércoles: EXAMEN 3pt). El mié 11/11 es T8 Mmedia 4/4\, no evaluable por huelga. Recuperación de seminarios S1-S3: mié 25/11. Fecha firme: movido del 11/11 al 18/11 por la reorganización de la huelga (mails del profe del 8/10 y 12/10\; planificación nueva de PoliformaT). El 11/11 es T8 Mmedia 4/4\, no evaluable por huelga. La recuperación de S1–S3 es el mié 25/11 (planificación nueva del 16/10\; antes figuraba el 18/11 y se había retrasado sin fecha).
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-022@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261118T130000
+DTEND;TZID=Europe/Madrid:20261118T143000
+SUMMARY:IEI — Entregable 1: código + demo
+CATEGORIES:IEI
+X-FINDES-TIPO:defensa presencial
+DESCRIPTION:Peso dentro del proyecto: 35 %. Nota mínima en entregables: 3.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-025@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261123T090000
+DTEND;TZID=Europe/Madrid:20261123T120000
+SUMMARY:AVD — 2.º acto de evaluación — Parcial Tema 3 · 20 %
+CATEGORIES:AVD
+X-FINDES-TIPO:examen
+DESCRIPTION:Parcial del Tema 3 (20 %). Hora **confirmada por el profesor: 9:00** (20/10)\; la tabla oficial de convocatorias decía 08:00. Duración 180 min.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-023@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261125T093000
+DTEND;TZID=Europe/Madrid:20261125T110000
+SUMMARY:SSR — Recuperación seminarios 1\, 2 y 3
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:Para no presentados a S1\, S2 y S3 (y dispensados). Fecha recuperada de la planificación nueva (Planificación aula - Parte 1 - mañanas.pdf\, 16/10): es el mié 25/11\, en la franja que antes tenía el S4 2/2. Antes figuraba el 18/11 y se había retrasado sin fecha. Obligatoria solo si te falta recuperar un seminario (te falta uno: el S1 2/2 del 23/9\, a confirmar).
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-032@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261207T130000
+DTEND;TZID=Europe/Madrid:20261207T143000
+SUMMARY:TIA — Prueba de observación O2 · 5 %
+CATEGORIES:TIA
+X-FINDES-TIPO:examen
+DESCRIPTION:Prueba de observación simple\, en aula. El lunes no hay teoría de TIA: asumo que es en el labo de las 13:00. Confirmalo.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-034@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261210T083000
+DTEND;TZID=Europe/Madrid:20261210T100000
+SUMMARY:SSR — Examen P2–P3 (laboratorio) · 1.5 pt
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:Se realiza el 10 o el 11 de diciembre según grupo — confirmar. Recuperación la semana siguiente. En tu labo de SSR (jue 08:30). El 11/12 es para el otro grupo.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-035@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261211T110000
+DTEND;TZID=Europe/Madrid:20261211T123000
+SUMMARY:SSR — Recuperación seminarios 4 y 5
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:Oportunidad para los no presentados. Obligatoria solo si te falta recuperar un seminario (te falta uno: el S1 2/2 del 23/9\, a confirmar). La recuperación de S1–S3 es el mié 25/11 (planificación nueva del 16/10\; antes figuraba el 18/11 y se había retrasado sin fecha).
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-036@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261214T090000
+DTEND;TZID=Europe/Madrid:20261214T120000
+SUMMARY:AVD — 3.º acto de evaluación — Parcial Tema 4 · 20 %
+CATEGORIES:AVD
+X-FINDES-TIPO:examen
+DESCRIPTION:Parcial del Tema 4 (20 %). Hora **confirmada por el profesor: 9:00** (20/10)\; la tabla oficial de convocatorias decía 08:00. Duración 180 min.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-037@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;VALUE=DATE:20261215
+DTEND;VALUE=DATE:20261219
+SUMMARY:AVD — Presentaciones proyecto AVD-PIN (15–18/12) · 10 % + 10 %
+CATEGORIES:AVD
+X-FINDES-TIPO:defensa presencial
+DESCRIPTION:Hora sin confirmar: probablemente en tu labo (mié 16/12 11:30) o en tu teoría (jue 17/12 10:30). Presentaciones del 15 al 18 de diciembre\, en laboratorio y en aula de teoría.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-039@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261217T083000
+DTEND;TZID=Europe/Madrid:20261217T100000
+SUMMARY:SSR — Examen de recuperación P2–P3 (laboratorio)
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:Semana del 14/12 — confirmar día exacto. En tu labo de SSR (jue 08:30)\, semana del 14/12.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-038@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;VALUE=DATE:20261217
+DTEND;VALUE=DATE:20261218
+SUMMARY:D3D — Playtesting — Feria de proyectos ETSINF
+CATEGORIES:D3D
+X-FINDES-TIPO:defensa presencial
+DESCRIPTION:Hora sin confirmar: tu labo de D3D es el jue 15:00\, pero la feria es de la ETSINF.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-040@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20261218T110000
+DTEND;TZID=Europe/Madrid:20261218T123000
+SUMMARY:SSR — Recuperación prueba de TEORÍA + seminarios
+CATEGORIES:SSR
+X-FINDES-TIPO:examen
+DESCRIPTION:En horario de clase (viernes). Recuperación de teoría (si la necesitás) + seminarios. Obligatoria solo si te falta recuperar un seminario (te falta uno: el S1 2/2 del 23/9\, a confirmar). La recuperación de S1–S3 es el mié 25/11 (planificación nueva del 16/10\; antes figuraba el 18/11 y se había retrasado sin fecha).
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-041@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;VALUE=DATE:20261221
+DTEND;VALUE=DATE:20261222
+SUMMARY:D3D — Examen de Unity
+CATEGORIES:D3D
+X-FINDES-TIPO:examen
+DESCRIPTION:Hora sin confirmar: quizás en la teoría de D3D\, lun 16:30.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-043@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270107T080000
+DTEND;TZID=Europe/Madrid:20270107T110000
+SUMMARY:TIA — Examen final
+CATEGORIES:TIA
+X-FINDES-TIPO:examen
+DESCRIPTION:Convocatoria Única A. Se construye sobre lo hecho en prácticas: llevar tus soluciones. Mínimo 4/10 para superar la asignatura.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-045@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270108T080000
+DTEND;TZID=Europe/Madrid:20270108T110000
+SUMMARY:TIA — Examen de prácticas en labs DSIC
+CATEGORIES:TIA
+X-FINDES-TIPO:examen
+DESCRIPTION:Convocatoria Única A.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-046@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270111T150000
+DTEND;TZID=Europe/Madrid:20270111T180000
+SUMMARY:AIV — Segundo parcial de TEORÍA
+CATEGORIES:AIV
+X-FINDES-TIPO:examen
+DESCRIPTION:Convocatoria Única A.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-047@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270112T112000
+DTEND;TZID=Europe/Madrid:20270112T142000
+SUMMARY:IEI — Prueba escrita de respuesta abierta · 35 %
+CATEGORIES:IEI
+X-FINDES-TIPO:examen
+DESCRIPTION:Nota mínima 4 para superar la asignatura. Recuperación el 27/01.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-048@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270119T080000
+DTEND;TZID=Europe/Madrid:20270119T110000
+SUMMARY:AVD — Examen final / recuperación de TEORÍA
+CATEGORIES:AVD
+X-FINDES-TIPO:examen
+DESCRIPTION:Recupera los parciales T2\, T3 y T4. Hora **confirmada por el profesor: 08:00** (20/10) — acá sí coincide con la tabla oficial\, a diferencia de los parciales\, que son a las 9:00.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-049@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270119T112000
+DTEND;TZID=Europe/Madrid:20270119T142000
+SUMMARY:AVD — Recuperación de prácticas en laboratorio
+CATEGORIES:AVD
+X-FINDES-TIPO:examen
+DESCRIPTION:CHOQUE con la recuperación de prácticas de TIA (mismo día y hora).
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-050@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270119T112000
+DTEND;TZID=Europe/Madrid:20270119T142000
+SUMMARY:TIA — Recuperación de prácticas
+CATEGORIES:TIA
+X-FINDES-TIPO:examen
+DESCRIPTION:CHOQUE con la recuperación de prácticas de AVD (mismo día y hora).
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-051@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270120T112000
+DTEND;TZID=Europe/Madrid:20270120T142000
+SUMMARY:TIA — Recuperación de teoría
+CATEGORIES:TIA
+X-FINDES-TIPO:examen
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-052@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270125T150000
+DTEND;TZID=Europe/Madrid:20270125T180000
+SUMMARY:AIV — Recuperación
+CATEGORIES:AIV
+X-FINDES-TIPO:examen
+DESCRIPTION:Convocatoria Única A.
+END:VEVENT
+BEGIN:VEVENT
+UID:upv-sema-2026a-053@pina-vault
+DTSTAMP:20261031T135834Z
+DTSTART;TZID=Europe/Madrid:20270127T150000
+DTEND;TZID=Europe/Madrid:20270127T180000
+SUMMARY:IEI — Recuperación prueba escrita de respuesta abierta
+CATEGORIES:IEI
+X-FINDES-TIPO:examen
+DESCRIPTION:La diapositiva dice '27/01/2026' — errata evidente\, se asume 2027.
+END:VEVENT
+END:VCALENDAR
